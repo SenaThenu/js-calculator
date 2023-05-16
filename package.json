@@ -1,0 +1,15 @@
+{
+  "name": "js-calculator",
+  "version": "1.0.0",
+  "description": "A Scratchy JS Calculator on the Terminal",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "Calculator",
+    "Maths"
+  ],
+  "author": "Senash Thenuja",
+  "license": "ISC"
+}
