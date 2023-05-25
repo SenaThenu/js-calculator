@@ -114,10 +114,17 @@ const extractBrackets = (expression) => {
                     closeFound = true
                 }
             }
-            let inBrackets = expression.slice(i + 1, closeIndex)
-            console.log(inBrackets)
+            let inBrackets = expression.slice(
+                i + 1,
+                expression.length + closeIndex
+            )
             let answer = calculateWithinBrackets(inBrackets)
-            return removeBracks(expression, i, closeIndex, answer)
+            return removeBracks(
+                expression,
+                i,
+                expression.length + closeIndex,
+                answer
+            )
         }
     }
     return expression
@@ -147,7 +154,6 @@ const doMath = (expression, opIndex) => {
     let [beginning, end] = findEndsOfNumbers(expression, opIndex)
     firstNum = parseFloat(expression.slice(beginning, opIndex))
     lastNum = parseFloat(expression.slice(opIndex + 1, end + 1))
-    console.log(firstNum, lastNum)
     let ans = null
     if (expression[opIndex] === "^") {
         ans = firstNum ** lastNum
@@ -184,7 +190,6 @@ const checkOperatorExistence = (expression) => {
 
 const calculateWithinBrackets = (extractedExpression) => {
     if (extractedExpression.includes("(")) {
-        ;``
         extractedExpression = extractBrackets(extractedExpression)
     } else {
     }
@@ -192,7 +197,6 @@ const calculateWithinBrackets = (extractedExpression) => {
     while (checkOperatorExistence(extractedExpression)) {
         let opIndex = findNextOperation(extractedExpression)
         extractedExpression = doMath(extractedExpression, opIndex)
-        console.log("Looping...")
     }
 
     return extractedExpression
@@ -203,16 +207,16 @@ while (!QUIT) {
     if (input.toLocaleLowerCase()[0] === "q") {
         QUIT = true
     } else if (input.toLocaleLowerCase()[0] == "h") {
-        console.log("Display Help Stuff!")
+        console.log(
+            "The Arithmetic Operators:\n    + Addition\n    - Subtraction\n    * Muliplication\n    / Division\n*Note: Only valid brackets are ()\n       This program can't still handle functions with negatives... =) Still Under Construction!"
+        )
     } else {
         let expression = input.replaceAll(" ", "")
-        console.log(expression)
         let [verified, newExpression] = validateExpression(expression)
         if (!verified) {
             console.log("Syntax Error!")
         } else {
             console.log("Great Syntax!")
-            console.log(newExpression)
             let simplestForm = extractBrackets(newExpression)
             let ans = calculateWithinBrackets(simplestForm)
             console.log(ans)
